@@ -1,2 +1,5 @@
-# FluxMusic
-Text-to-Music Generation with Rectified Flow Transformer
+## FluxMusic: Text-to-Music Generation with Rectified Flow Transformer
+
+
+
+
