@@ -1,0 +1,83 @@
+metadata_root: "./data/dataset/metadata/dataset_root.json"
+log_directory: "./log/latent_diffusion"
+project: "audioldm"
+precision: "high"
+
+variables:
+  sampling_rate: &sampling_rate 16000 
+  mel_bins: &mel_bins 64
+  latent_embed_dim: &latent_embed_dim 8
+  latent_t_size: &latent_t_size 256 # TODO might need to change
+  latent_f_size: &latent_f_size 16
+  in_channels: &unet_in_channels 8
+  optimize_ddpm_parameter: &optimize_ddpm_parameter true
+  optimize_gpt: &optimize_gpt true
+  warmup_steps: &warmup_steps 2000
+
+data: 
+  train: ["audiocaps"]
+  val: "audiocaps"
+  test: "audiocaps"
+  class_label_indices: "audioset_eval_subset"
+  dataloader_add_ons: ["waveform_rs_48k"] 
+
+step:
+  validation_every_n_epochs: 15
+  save_checkpoint_every_n_steps: 5000
+  # limit_val_batches: 2
+  max_steps: 800000
+  save_top_k: 1
+
+preprocessing:
+  audio:
+    sampling_rate: *sampling_rate
+    max_wav_value: 32768.0
+    duration: 10.24
+  stft:
+    filter_length: 1024
+    hop_length: 160
+    win_length: 1024
+  mel:
+    n_mel_channels: *mel_bins
+    mel_fmin: 0
+    mel_fmax: 8000 
+
+augmentation:
+  mixup: 0.0
+
+model:
+    base_learning_rate: 8.0e-06
+    target: audioldm_train.modules.latent_encoder.autoencoder.AutoencoderKL
+    params: 
+      # reload_from_ckpt: "data/checkpoints/vae_mel_16k_64bins.ckpt"
+      sampling_rate: *sampling_rate
+      batchsize: 4
+      monitor: val/rec_loss
+      image_key: fbank
+      subband: 1
+      embed_dim: *latent_embed_dim
+      time_shuffle: 1
+      lossconfig:
+        target: audioldm_train.losses.LPIPSWithDiscriminator
+        params:
+          disc_start: 50001
+          kl_weight: 1000.0
+          disc_weight: 0.5
+          disc_in_channels: 1
+      ddconfig: 
+        double_z: true
+        mel_bins: *mel_bins # The frequency bins of mel spectrogram
+        z_channels: 8
+        resolution: 256
+        downsample_time: false
+        in_channels: 1
+        out_ch: 1
+        ch: 128 
+        ch_mult:
+        - 1
+        - 2
+        - 4
+        num_res_blocks: 2
+        attn_resolutions: []
+        dropout: 0.0
+    
