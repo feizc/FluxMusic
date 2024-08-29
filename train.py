@@ -21,6 +21,7 @@ from audioldm2.utilities.data.dataset import AudioDataset
 
 from constants import build_model
 from utils import load_clip, load_clap, load_t5
+from thop import profile
 
 
 @torch.no_grad()
@@ -133,7 +134,8 @@ class RF(torch.nn.Module):
         for i in range(sample_steps, 0, -1):
             t = i / sample_steps
             t = torch.tensor([t] * b).to(z.device)
-
+            
+            # print(z.size(), t.size())
             vc = model(x=z, t=t, **conds)
             if null_cond is not None:
                 vu = model(x=z, t=t, **null_cond)
@@ -225,20 +227,25 @@ def main(args):
     parameters_sum = sum(x.numel() for x in model.parameters())
     logger.info(f"{parameters_sum / 1000000.0} M")  
 
+    if args.resume is not None: 
+        print('load from: ', args.resume) 
+        resume_ckpt = torch.load(args.resume, map_location=lambda storage, loc: storage)['ema'] 
+        model.load_state_dict(resume_ckpt) 
+
     # Note that parameter initialization is done within the DiT constructor
     ema = deepcopy(model).to(device)  # Create an EMA of the model for use after training
     requires_grad(ema, False)
     model = DDP(model.to(device), device_ids=[rank]) 
 
     diffusion = RF() 
-    model_path = '/maindata/data/shared/multimodal/public/dataset_music/audioldm2' 
+    model_path = '/maindata/data/shared/public/zhengcong.fei/dataset/dataset_music/audioldm2' 
     vae = AutoencoderKL.from_pretrained(os.path.join(model_path, 'vae')).to(device)
     # vocoder = SpeechT5HifiGan.from_pretrained(os.path.join(model_path, 'vocoder')).to(device) 
     t5 = load_t5(device, max_length=256)
     clap = load_clap(device, max_length=256)
     # clip = load_clip(device)
 
-    opt = torch.optim.AdamW(model.parameters(), lr=1e-4, weight_decay=0)
+    opt = torch.optim.AdamW(model.parameters(), lr=3e-5, weight_decay=0)
 
 
     config = yaml.load(
@@ -291,16 +298,18 @@ def main(args):
     for epoch in range(args.epochs):
         sampler.set_epoch(epoch)
         logger.info(f"Beginning epoch {epoch}...")
-
+        data_iter_step = 0 
         for batch in loader: 
             latents, model_kwargs = prepare_model_inputs(args, batch, device, vae, clap, t5,) 
             loss, _ = diffusion.forward(model=model, x=latents, **model_kwargs) 
-            # print(loss)
-            opt.zero_grad()
-            loss.backward()
-            opt.step()
-            update_ema(ema, model.module)
+            # print(loss) 
+            if (data_iter_step + 1) % args.accum_iter == 0:
+                opt.zero_grad()
+                loss.backward()
+                opt.step() 
+                update_ema(ema, model.module)
 
+            data_iter_step += 1 
             # Log loss values:
             running_loss += loss.item()
             log_steps += 1
@@ -321,7 +330,7 @@ def main(args):
                 start_time = time()
 
             # Save DiT checkpoint:
-            if train_steps % args.ckpt_every == 0 and train_steps > 0:
+            if train_steps % args.ckpt_every == 0 and train_steps > 0: 
                 if rank == 0:
                     checkpoint = {
                         # "model": model.module.state_dict(),
@@ -330,7 +339,11 @@ def main(args):
                         "args": args
                     }
                     checkpoint_path = f"{checkpoint_dir}/{train_steps:07d}.pt"
-                    torch.save(checkpoint, checkpoint_path)
+                    try: 
+                        torch.save(checkpoint, checkpoint_path)
+                    except Exception as e: 
+                        print(e)
+                    
                     logger.info(f"Saved checkpoint to {checkpoint_path}")
                 dist.barrier()
 
@@ -354,8 +367,8 @@ if __name__ == "__main__":
     parser.add_argument("--global-seed", type=int, default=1234) 
     parser.add_argument("--num-workers", type=int, default=4)
     parser.add_argument("--log-every", type=int, default=100)
-    parser.add_argument('--accum_iter', default=8, type=int,)  
-    parser.add_argument("--ckpt-every", type=int, default=50_000) 
+    parser.add_argument('--accum_iter', default=16, type=int,)  
+    parser.add_argument("--ckpt-every", type=int, default=100_000) 
     parser.add_argument('--local-rank', type=int, default=-1, help='local rank passed from distributed launcher') 
     args = parser.parse_args() 
     main(args) 
