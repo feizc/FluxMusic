@@ -5,7 +5,7 @@
 This repo contains PyTorch model definitions, pre-trained weights, and training/sampling code for paper *Flux that plays music*. 
 It explores a simple extension of diffusion-based rectified flow Transformers for text-to-music generation. The model architecture can be seen as follows: 
 
-
+<img src=visuals/framework.png width=400 />
 
 
 
@@ -13,43 +13,42 @@ It explores a simple extension of diffusion-based rectified flow Transformers fo
 
 You can refer to the [link](https://github.com/black-forest-labs/flux) to build the running environment.
 
-To launch DiT-MoE-S/2 (256x256) in the latent space training with `N` GPUs on one node with pytorch DDP:
+To launch small version in the latent space training with `N` GPUs on one node with pytorch DDP:
 ```bash
-torchrun --nnodes=1 --nproc_per_node=N train.py \
---model DiT-S/2 \
---data-path /path/to/imagenet/train \
---image-size 256 \
---global-batch-size 256 \
---vae-path /path/to/vae
+torchrun --nnodes=1 --nproc_per_node=8 train.py \
+--version small \
+--data-path xxx \
+--global_batch_size 128
 ```
 
 
 ### 2. Inference 
 
-We include a [`sample.py`](sample.py) script which samples images from a DiT-MoE model. Take care that we use torch.float16 for large model inference. 
+We include a [`sample.py`](sample.py) script which samples music clips from a MusicFlux model as:  
 ```bash
 python sample.py \
---model DiT-XL/2 \
---ckpt /path/to/model \
---vae-path /path/to/vae \
---image-size 256 \
---cfg-scale 1.5
+--version small \
+--ckpt_path /path/to/model \
+--prompt_file config/example.txt
 ```
 
 
 ### 3. Download Models and Data 
 
-We are processing it as soon as possible, the model weights, data and used scripts for results reproduce will be released within two weeks continuously :) 
+We use VAE and Vocoder in AudioLDM2, CLAP-L, and T5-XXL. You can download in the following table directly, we also provide the training scripts in our experiments. 
+Note that as in actual experiments, a restart experiment was performed due to machine malfunction, so there will be resume options in some scripts.
 
-We use VAE in AudioLDM2, CLAP-L, and T5-XXL. 
 
-
-|  Model |  Url | Scripts |  
+|  Model |  Url | Training scripts |  
 |---------------|------------------|---------| 
-| Small         | [link](https://huggingface.co/feizhengcong/DiT-MoE/blob/main/dit_moe_s_8E2A.pt)  |   | 
-| Base          | [link](https://huggingface.co/feizhengcong/DiT-MoE/blob/main/dit_moe_s_16E2A.pt)  |  |  
-| Large         | [link](https://huggingface.co/feizhengcong/DiT-MoE/blob/main/dit_moe_b_8E2A.pt)  |   | 
-| Giant         | [link](https://huggingface.co/feizhengcong/DiT-MoE/blob/main/dit_moe_xl_8E2A.pt)   |  | 
+| VAE | [link](https://huggingface.co/cvssp/audioldm2/tree/main/vae) | - |
+| Vocoder | [link](https://huggingface.co/cvssp/audioldm2/tree/main/vocoder) | - |
+| T5-XXL | [link](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers/tree/main/text_encoder_3) | - |
+| CLAP-L | [link](https://huggingface.co/laion/larger_clap_music/tree/main) | - |
+| FluxMusic-Small         | [link](https://huggingface.co/feizhengcong/FluxMusic)  |  [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_s.sh) | 
+| FluxMusic-Base          | [link](https://huggingface.co/feizhengcong/FluxMusic)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_b.sh) |  
+| FluxMusic-Large         | [link](https://huggingface.co/feizhengcong/FluxMusic)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_l.sh)  | 
+| FluxMusic-Giant         | [link](https://huggingface.co/feizhengcong/FluxMusic)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
 
 
 ### Acknowledgments
