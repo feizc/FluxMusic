@@ -21,6 +21,8 @@ torchrun --nnodes=1 --nproc_per_node=8 train.py \
 --global_batch_size 128
 ```
 
+More scripts can reference to `scripts` file direction. 
+
 
 ### 2. Inference 
 
@@ -33,7 +35,7 @@ python sample.py \
 ```
 
 
-### 3. Download Models and Data 
+### 3. Download Ckpts and Data 
 
 We use VAE and Vocoder in AudioLDM2, CLAP-L, and T5-XXL. You can download in the following table directly, we also provide the training scripts in our experiments. 
 Note that as in actual experiments, a restart experiment was performed due to machine malfunction, so there will be resume options in some scripts.
@@ -49,6 +51,10 @@ Note that as in actual experiments, a restart experiment was performed due to ma
 | FluxMusic-Base          | [link](https://huggingface.co/feizhengcong/FluxMusic)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_b.sh) |  
 | FluxMusic-Large         | [link](https://huggingface.co/feizhengcong/FluxMusic)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_l.sh)  | 
 | FluxMusic-Giant         | [link](https://huggingface.co/feizhengcong/FluxMusic)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
+
+
+The construction of training data can refer to the `test.py` file. Considering copyright issues, the data used in the paper needs to be downloaded by oneself.
+A quick download link can be found in [Huggingface](https://huggingface.co/datasets?search=music) : ). 
 
 
 ### Acknowledgments
