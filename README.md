@@ -2,7 +2,7 @@
 
 <a href="http://arxiv.org/abs/2406.01159"><img src="https://img.shields.io/static/v1?label=Paper&message=FluxMusic&color=purple&logo=arxiv"></a> &ensp;
 <a href="https://www.melodio.ai/"><img src="https://img.shields.io/static/v1?label=Recommend&message=Application&color=orange&logo=demo"></a> &ensp;
-<a href="https://huggingface.co/feizhengcong/fluxmusic"><img src="https://img.shields.io/static/v1?label=models&message=HF&color=yellow"></a> &ensp;
+<a href="https://huggingface.co/feizhengcong/fluxmusic"><img src="https://img.shields.io/static/v1?label=models&message=HuggingFace&color=yellow"></a> &ensp;
 
 This repo contains PyTorch model definitions, pre-trained weights, and training/sampling code for paper *Flux that plays music*. 
 It explores a simple extension of diffusion-based rectified flow Transformers for text-to-music generation. The model architecture can be seen as follows: 
@@ -50,10 +50,10 @@ Note that in actual experiments, a restart experiment was performed due to machi
 | Vocoder | [link](https://huggingface.co/cvssp/audioldm2/tree/main/vocoder) | - |
 | T5-XXL | [link](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers/tree/main/text_encoder_3) | - |
 | CLAP-L | [link](https://huggingface.co/laion/larger_clap_music/tree/main) | - |
-| FluxMusic-Small         | [link](https://huggingface.co/feizhengcong/FluxMusic)  |  [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_s.sh) | 
-| FluxMusic-Base          | [link](https://huggingface.co/feizhengcong/FluxMusic)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_b.sh) |  
-| FluxMusic-Large         | [link](https://huggingface.co/feizhengcong/FluxMusic)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_l.sh)  | 
-| FluxMusic-Giant         | [link](https://huggingface.co/feizhengcong/FluxMusic)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
+| FluxMusic-Small         | [link](https://huggingface.co/feizhengcong/FluxMusic/musicflow_s.pt)  |  [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_s.sh) | 
+| FluxMusic-Base          | [link](https://huggingface.co/feizhengcong/FluxMusic/musicflow_b.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_b.sh) |  
+| FluxMusic-Large         | [link](https://huggingface.co/feizhengcong/FluxMusic/musicflow_l.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_l.sh)  | 
+| FluxMusic-Giant         | [link](https://huggingface.co/feizhengcong/FluxMusic/musicflow_g.pt)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
 
 
 The construction of training data can refer to the `test.py` file. 
