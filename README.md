@@ -1,7 +1,7 @@
 ## FluxMusic: Text-to-Music Generation with Rectified Flow Transformer <br><sub>Official PyTorch Implementation</sub>
 
 <a href="http://arxiv.org/abs/2406.01159"><img src="https://img.shields.io/static/v1?label=Paper&message=FluxMusic&color=purple&logo=arxiv"></a> &ensp;
-<a href="https://www.melodio.ai/"><img src="https://img.shields.io/static/v1?label=Demo&message=FluxMusic&color=orange&logo=demo"></a> &ensp;
+<a href="https://www.melodio.ai/"><img src="https://img.shields.io/static/v1?label=Recommend&message=Application&color=orange&logo=demo"></a> &ensp;
 <a href="https://huggingface.co/feizhengcong/fluxmusic"><img src="https://img.shields.io/static/v1?label=models&message=HF&color=yellow"></a> &ensp;
 
 This repo contains PyTorch model definitions, pre-trained weights, and training/sampling code for paper *Flux that plays music*. 
