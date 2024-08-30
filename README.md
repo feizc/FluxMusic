@@ -38,7 +38,8 @@ python sample.py \
 ### 3. Download Ckpts and Data 
 
 We use VAE and Vocoder in AudioLDM2, CLAP-L, and T5-XXL. You can download in the following table directly, we also provide the training scripts in our experiments. 
-Note that as in actual experiments, a restart experiment was performed due to machine malfunction, so there will be resume options in some scripts.
+
+Note that in actual experiments, a restart experiment was performed due to machine malfunction, so there will be resume options in some scripts.
 
 
 |  Model |  Url | Training scripts |  
@@ -53,7 +54,9 @@ Note that as in actual experiments, a restart experiment was performed due to ma
 | FluxMusic-Giant         | [link](https://huggingface.co/feizhengcong/FluxMusic)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
 
 
-The construction of training data can refer to the `test.py` file. Considering copyright issues, the data used in the paper needs to be downloaded by oneself.
+The construction of training data can refer to the `test.py` file. 
+
+Considering copyright issues, the data used in the paper needs to be downloaded by oneself.
 A quick download link can be found in [Huggingface](https://huggingface.co/datasets?search=music) : ). 
 
 
