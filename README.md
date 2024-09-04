@@ -1,6 +1,6 @@
 ## FluxMusic: Text-to-Music Generation with Rectified Flow Transformer <br><sub>Official PyTorch Implementation</sub>
 
-<a href="https://services.arxiv.org/html/submission/5825858/view"><img src="https://img.shields.io/static/v1?label=Paper&message=FluxMusic&color=purple&logo=arxiv"></a> &ensp;
+<a href="https://arxiv.org/abs/2409.00587"><img src="https://img.shields.io/static/v1?label=Paper&message=FluxMusic&color=purple&logo=arxiv"></a> &ensp;
 <a href="https://www.melodio.ai/"><img src="https://img.shields.io/static/v1?label=Recommend&message=Application&color=orange&logo=demo"></a> &ensp;
 <a href="https://huggingface.co/feizhengcong/fluxmusic"><img src="https://img.shields.io/static/v1?label=Models&message=HuggingFace&color=yellow"></a> &ensp;
 
