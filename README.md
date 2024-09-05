@@ -1,8 +1,9 @@
 ## FluxMusic: Text-to-Music Generation with Rectified Flow Transformer <br><sub>Official PyTorch Implementation</sub>
 
 <a href="https://arxiv.org/abs/2409.00587"><img src="https://img.shields.io/static/v1?label=Paper&message=FluxMusic&color=purple&logo=arxiv"></a> &ensp;
-<a href="https://www.melodio.ai/"><img src="https://img.shields.io/static/v1?label=Recommend&message=Application&color=orange&logo=demo"></a> &ensp;
 <a href="https://huggingface.co/feizhengcong/fluxmusic"><img src="https://img.shields.io/static/v1?label=Models&message=HuggingFace&color=yellow"></a> &ensp;
+  <a href="https://github.com/feizc/FluxMusic"><img src="https://img.shields.io/static/v1?label=Webpage&message=Cases&color=green"></a> &ensp;
+</div>
 
 
 This repo contains PyTorch model definitions, pre-trained weights, and training/sampling code for paper *Flux that plays music*. 
@@ -10,6 +11,13 @@ It explores a simple extension of diffusion-based rectified flow Transformers fo
 
 <img src=visuals/framework.png width=400 />
 
+
+### To-do list
+
+- [x] training / inference scripts
+- [ ] clean code
+- [ ] all ckpts
+- [ ] gradio demo, webpage for audio samples 
 
 
 ### 1. Training 
@@ -47,22 +55,28 @@ We use VAE and Vocoder in AudioLDM2, CLAP-L, and T5-XXL. You can download in the
 Note that in actual experiments, a restart experiment was performed due to machine malfunction, so there will be resume options in some scripts.
 
 
-|  Model |  Url | Training scripts |  
-|---------------|------------------|---------| 
-| VAE | [link](https://huggingface.co/cvssp/audioldm2/tree/main/vae) | - |
-| Vocoder | [link](https://huggingface.co/cvssp/audioldm2/tree/main/vocoder) | - |
-| T5-XXL | [link](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers/tree/main/text_encoder_3) | - |
-| CLAP-L | [link](https://huggingface.co/laion/larger_clap_music/tree/main) | - |
-| FluxMusic-Small         | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_s.pt)  |  [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_s.sh) | 
-| FluxMusic-Base          | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_b.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_b.sh) |  
-| FluxMusic-Large         | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_l.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_l.sh)  | 
-| FluxMusic-Giant         | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_g.pt)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
+|  Model |Training steps  |  Url | Training scripts |  
+|-------|--------|------------------|---------| 
+| VAE | -| [link](https://huggingface.co/cvssp/audioldm2/tree/main/vae) | - |
+| Vocoder |-| [link](https://huggingface.co/cvssp/audioldm2/tree/main/vocoder) | - |
+| T5-XXL | - | [link](https://huggingface.co/stabilityai/stable-diffusion-3-medium-diffusers/tree/main/text_encoder_3) | - |
+| CLAP-L | -|  [link](https://huggingface.co/laion/larger_clap_music/tree/main) | - |
+| FluxMusic-Small |   200K     | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_s.pt)  |  [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_s.sh) | 
+| FluxMusic-Base   |   200K    | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_b.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_b.sh) |  
+| FluxMusic-Large   |  200K    | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_l.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_l.sh)  | 
+| FluxMusic-Giant    |  200K   | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_g.pt)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
 
+
+Note that 200K-steps ckpts are trained on a sub-training set and used for ploted the scaling experiments as well as case studies in the paper. 
+The full version of main results will be realsed right way. 
 
 The construction of training data can refer to the `test.py` file, showing a simple build of combing differnet datasets in json file. 
 
 Considering copyright issues, the data used in the paper needs to be downloaded by oneself.
 A quick download link can be found in [Huggingface](https://huggingface.co/datasets?search=music) : ). 
+
+This is a research project, and it is recommended to try advanced products: 
+<a href="https://www.melodio.ai/"><img src="https://img.shields.io/static/v1?label=Recommend&message=Application&color=orange&logo=demo"></a> &ensp; 
 
 
 ### Acknowledgments
