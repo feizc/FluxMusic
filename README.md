@@ -3,6 +3,7 @@
 <a href="https://arxiv.org/abs/2409.00587"><img src="https://img.shields.io/static/v1?label=Paper&message=FluxMusic&color=purple&logo=arxiv"></a> &ensp;
 <a href="https://huggingface.co/feizhengcong/fluxmusic"><img src="https://img.shields.io/static/v1?label=Models&message=HuggingFace&color=yellow"></a> &ensp;
   <a href="https://github.com/feizc/FluxMusic"><img src="https://img.shields.io/static/v1?label=Webpage&message=Cases&color=green"></a> &ensp;
+  <a href="https://github.com/curtified/FluxMusicGUI"><img src="https://img.shields.io/static/v1?label=GUI&message=FluxMusic&color=orange&logo=demo"></a> &ensp;
 </div>
 
 
@@ -15,7 +16,7 @@ It explores a simple extension of diffusion-based rectified flow Transformers fo
 ### To-do list
 
 - [x] training / inference scripts
-- [ ] clean code
+- [x] clean code
 - [ ] all ckpts
 - [ ] gradio demo, webpage for audio samples 
 
