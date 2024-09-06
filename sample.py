@@ -54,21 +54,18 @@ def main(args):
     latent_size = (256, 16) 
 
     model = build_model(args.version).to(device) 
-    local_path = '/maindata/data/shared/multimodal/zhengcong.fei/code/music-flow/results/base/checkpoints/0050000.pt'
+    local_path = args.ckpt_path
     state_dict = torch.load(local_path, map_location=lambda storage, loc: storage)
     model.load_state_dict(state_dict['ema'])
     model.eval()  # important! 
     diffusion = RF()
 
-    model_path = '/maindata/data/shared/multimodal/public/ckpts/FLUX.1-dev'  
-
     # Setup VAE
     t5 = load_t5(device, max_length=256)
     clap = load_clap(device, max_length=256)
 
-    model_path = '/maindata/data/shared/multimodal/public/dataset_music/audioldm2' 
-    vae = AutoencoderKL.from_pretrained(os.path.join(model_path, 'vae')).to(device)
-    vocoder = SpeechT5HifiGan.from_pretrained(os.path.join(model_path, 'vocoder')).to(device)
+    vae = AutoencoderKL.from_pretrained(os.path.join(args.audioldm2_model_path, 'vae')).to(device)
+    vocoder = SpeechT5HifiGan.from_pretrained(os.path.join(args.audioldm2_model_path, 'vocoder')).to(device)
 
     with open(args.prompt_file, 'r') as f: 
         conds_txt = f.readlines()
@@ -111,10 +108,12 @@ def main(args):
         wavfile.write('wav/sample_' + str(i) + '.wav', 16000, waveform) 
     
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     parser = argparse.ArgumentParser()
-    parser.add_argument("--version", type=str, default="base")
+    parser.add_argument("--version", type=str, default="small")
     parser.add_argument("--prompt_file", type=str, default='config/example.txt')
+    parser.add_argument("--ckpt_path", type=str, default='musicflow_s.pt')
+    parser.add_argument("--audioldm2_model_path", type=str, default='/maindata/data/shared/multimodal/public/dataset_music/audioldm2' )
     parser.add_argument("--seed", type=int, default=2024)
     args = parser.parse_args()
     main(args)
