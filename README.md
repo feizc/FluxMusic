@@ -69,7 +69,7 @@ Note that in actual experiments, a restart experiment was performed due to machi
 
 
 Note that 200K-steps ckpts are trained on a sub-training set and used for ploted the scaling experiments as well as case studies in the paper. 
-The full version of main results will be realsed right way. 
+The full version of main results will be released right way. 
 
 The construction of training data can refer to the `test.py` file, showing a simple build of combing differnet datasets in json file. 
 
