@@ -53,11 +53,9 @@ def main(args):
 
     latent_size = (256, 16) 
 
-    model = build_model(args.version).to(device) 
-    local_path = args.ckpt_path
-    state_dict = torch.load(local_path, map_location=lambda storage, loc: storage)
-    model.load_state_dict(state_dict['ema'])
-    model.eval()  # important! 
+    repo_id = f"feizhengcong/FluxMusic-{args.version}"
+    model.from_pretrained(repo_id)
+    model.to(device) 
     diffusion = RF()
 
     # Setup VAE
@@ -112,7 +110,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--version", type=str, default="small")
     parser.add_argument("--prompt_file", type=str, default='config/example.txt')
-    parser.add_argument("--ckpt_path", type=str, default='musicflow_s.pt')
     parser.add_argument("--audioldm2_model_path", type=str, default='/maindata/data/shared/multimodal/public/dataset_music/audioldm2' )
     parser.add_argument("--seed", type=int, default=2024)
     args = parser.parse_args()
