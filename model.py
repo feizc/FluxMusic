@@ -3,6 +3,8 @@ from dataclasses import dataclass
 import torch
 from torch import Tensor, nn
 
+from huggingface_hub import PyTorchModelHubMixin
+
 from modules.layers import (DoubleStreamBlock, EmbedND, LastLayer,
                                  MLPEmbedder, SingleStreamBlock,
                                  timestep_embedding)
@@ -24,7 +26,7 @@ class FluxParams:
     guidance_embed: bool
 
 
-class Flux(nn.Module):
+class Flux(nn.Module, PyTorchModelHubMixin, repo_url="https://github.com/feizc/FluxMusic", pipeline_tag="text-to-audio", tags=["text-to-music"], license="apache-2.0"):
     """
     Transformer model for flow matching on sequences.
     """
