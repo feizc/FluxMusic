@@ -20,6 +20,12 @@ It explores a simple extension of diffusion-based rectified flow Transformers fo
 - [ ] all ckpts
 - [ ] gradio demo, webpage for audio samples 
 
+### Requirements
+
+To install the requirements, run:
+```bash
+pip install -r requirements.txt
+```
 
 ### 1. Training 
 
@@ -43,7 +49,17 @@ We include a [`sample.py`](sample.py) script which samples music clips according
 python sample.py \
 --version small \
 --ckpt_path /path/to/model \
+--audioldm2_model_path /path/to/audioldm2_model \
 --prompt_file config/example.txt
+```
+
+To get the `ckpt_path`, download one of the FluxMusic-[Small/Base/Large/Giant] ckpts from the table below
+
+To get the `audioldm2_model_path`, clone the [AudioLDM2](https://huggingface.co/cvssp/audioldm2) repository. Make sure you have git-lfs installed.
+
+```bash
+git lfs install
+git clone https://huggingface.co/cvssp/audioldm2
 ```
 
 All prompts used in paper are lists in `config/example.txt`.
