@@ -73,8 +73,11 @@ The full version of main results will be released right way.
 
 The construction of training data can refer to the `test.py` file, showing a simple build of combing differnet datasets in json file. 
 
-Considering copyright issues, the data used in the paper needs to be downloaded by oneself.
-A quick download link can be found in [Huggingface](https://huggingface.co/datasets?search=music) : ). 
+Considering copyright issues, the data used in the paper needs to be downloaded by oneself.  
+
+We provide a clean subset in: <a href="https://huggingface.co/datasets/feizhengcong/FluxMusic"><img src="https://img.shields.io/static/v1?label=Datasets&message=HuggingFace&color=blue"></a> &ensp; 
+
+A quick download link for other datasets can be found in [Huggingface](https://huggingface.co/datasets?search=music) : ). 
 
 This is a research project, and it is recommended to try advanced products: 
 <a href="https://www.melodio.ai/"><img src="https://img.shields.io/static/v1?label=Recommend&message=Application&color=orange&logo=demo"></a> &ensp; 
