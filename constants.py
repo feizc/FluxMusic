@@ -32,6 +32,7 @@ def build_model(version='base'):
             qkv_bias=True,
             guidance_embed=True,
         ) 
+        
 
     elif version == 'large': 
         params=FluxParams(
@@ -47,7 +48,40 @@ def build_model(version='base'):
             theta=10_000,
             qkv_bias=True,
             guidance_embed=True,
+        ) 
+
+    elif version == 'biggiant': 
+        params=FluxParams(
+            in_channels=32,
+            vec_in_dim=768,
+            context_in_dim=4096,
+            hidden_size=2048,
+            mlp_ratio=4.0,
+            num_heads=16,
+            depth=19,
+            depth_single_blocks=38,
+            axes_dim=[32, 48, 48],
+            theta=10_000,
+            qkv_bias=True,
+            guidance_embed=True,
+        ) 
+
+    elif version == 'giant_full':    
+        params=FluxParams(
+            in_channels=32,
+            vec_in_dim=768,
+            context_in_dim=4096,
+            hidden_size=1408,
+            mlp_ratio=4.0,
+            num_heads=16,
+            depth=12,
+            depth_single_blocks=24,
+            axes_dim=[16, 36, 36],
+            theta=10_000,
+            qkv_bias=True,
+            guidance_embed=True,
         )
+
     else:     
         params=FluxParams(
             in_channels=32,
@@ -64,5 +98,6 @@ def build_model(version='base'):
             guidance_embed=True,
         )
 
+        
     model = Flux(params) 
     return model 
