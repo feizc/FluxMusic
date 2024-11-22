@@ -17,8 +17,7 @@ It explores a simple extension of diffusion-based rectified flow Transformers fo
 
 - [x] training / inference scripts
 - [x] clean code
-- [ ] all ckpts
-- [ ] gradio demo, webpage for audio samples 
+- [x] all ckpts
 
 
 ### 1. Training 
@@ -66,6 +65,7 @@ Note that in actual experiments, a restart experiment was performed due to machi
 | FluxMusic-Base   |   200K    | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_b.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_b.sh) |  
 | FluxMusic-Large   |  200K    | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_l.pt)  | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_l.sh)  | 
 | FluxMusic-Giant    |  200K   | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_g.pt)   | [link](https://github.com/feizc/FluxMusic/blob/main/scripts/train_g.sh) | 
+| FluxMusic-Giant-Full    |  2M   | [link](https://huggingface.co/feizhengcong/FluxMusic/blob/main/musicflow_g_full.pt)   | - | 
 
 
 Note that 200K-steps ckpts are trained on a sub-training set and used for ploted the scaling experiments as well as case studies in the paper. 
