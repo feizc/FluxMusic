@@ -1,0 +1,35 @@
+torch
+torchvision
+einops
+fire>=0.6.0
+huggingface-hub
+safetensors
+sentencepiece
+transformers
+tokenizers
+protobuf
+requests
+invisible-watermark
+diffusers
+einops
+diffusers
+transformers
+scipy
+numpy
+regex
+tqdm
+accelerate
+soundfile
+unidecode
+phonemizer
+torchlibrosa
+ftfy
+pandas
+timm
+matplotlib
+thop
+flash-attn==2.6.3
+sentencepiece
+Pillow #Only required for creating your own datasets
+progressbar
+librosa==0.9.2 #required for audiollm, which apparently does not use torchlibrosa
