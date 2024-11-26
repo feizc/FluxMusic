@@ -17,7 +17,7 @@ It explores a simple extension of diffusion-based rectified flow Transformers fo
 
 - [x] training / inference scripts
 - [x] clean code
-- [x] all ckpts
+- [x] all ckpts and part of dataset
 
 
 ### 1. Training 
