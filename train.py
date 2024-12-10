@@ -302,11 +302,12 @@ def main(args):
         for batch in loader: 
             latents, model_kwargs = prepare_model_inputs(args, batch, device, vae, clap, t5,) 
             loss, _ = diffusion.forward(model=model, x=latents, **model_kwargs) 
-            # print(loss) 
+            # bug fix
+            loss = loss / args.accum_iter 
+            loss.backward()
             if (data_iter_step + 1) % args.accum_iter == 0:
-                opt.zero_grad()
-                loss.backward()
                 opt.step() 
+                opt.zero_grad()
                 update_ema(ema, model.module)
 
             data_iter_step += 1 
